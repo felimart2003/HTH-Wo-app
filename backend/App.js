@@ -5,8 +5,8 @@ const app = express();
 const port = 3000;
 
 // Nutritionix API credentials
-const APP_ID = '1036e2d3';
-const API_KEY = 'ce53d1cb2ffe771e81efcf00ba449f3d';
+const APP_ID = 'process.env.NUTRITIONIX_APP_ID';
+const API_KEY = 'process.env.NUTRITIONIX_API_KEY';
 
 // Endpoint to get food data
 app.get('/getFoodData', async (req, res) => {
