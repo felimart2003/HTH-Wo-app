@@ -1,12 +1,16 @@
 const express = require('express');
 const axios = require('axios');
+const path = require('path');
+require('dotenv').config();
 
 const app = express();
 const port = 3000;
 
 // Nutritionix API credentials
-const APP_ID = 'process.env.NUTRITIONIX_APP_ID';
-const API_KEY = 'process.env.NUTRITIONIX_API_KEY';
+const APP_ID = process.env.NUTRITIONIX_APP_ID;
+const API_KEY = process.env.NUTRITIONIX_API_KEY;
+
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 // Endpoint to get food data
 app.get('/getFoodData', async (req, res) => {
@@ -27,6 +31,10 @@ app.get('/getFoodData', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
 });
 
 app.listen(port, () => {
